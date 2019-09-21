@@ -1,9 +1,13 @@
-use scopeguard::defer;
+struct Droppable;
+
+impl Drop for Droppable {
+    fn drop(&mut self) {
+        println!("Dropping a Droppable");
+    }
+}
 
 fn main() {
-    defer!({
-        println!("I am being dropped!");
-    });
+    let _guard = Droppable;
     
     println!("About to panic");
     let x : Option<()> = None;
